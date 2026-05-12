@@ -1,5 +1,7 @@
 ---
 name: nfr-code-review
+argument-hint: "<file-or-directory> or <paste-code>"
+allowed-tools: Read, Grep, Glob, Bash
 description: |
   Non-Functional Requirements (NFR) code review based on the RoboNFR framework.
   Evaluates code across four dimensions: Code Design, Readability, Reliability, and Performance.
@@ -7,8 +9,10 @@ description: |
   (SonarQube, Semgrep, CodeQL, Pylint) for objective metrics.
   Use when asked to "NFR review", "non-functional code review", "code quality review",
   "review readability", "review reliability", "review performance", "review code design",
-  "RoboNFR review", or when the user wants to assess code against non-functional requirements
+  "RoboNFR review", "review Python quality", "review JavaScript quality", "review Go performance",
+  or when the user wants to assess code against non-functional requirements
   rather than functional correctness.
+  NOT for functional bug hunting, syntax linting, or security penetration testing.
 ---
 
 # NFR Code Review Skill
@@ -71,7 +75,7 @@ Assess efficiency and scalability:
 
 ## Review Workflow
 
-1. **Scope Definition**: Identify which files/changes are in scope. Exclude generated files, vendored dependencies, and test data.
+1. **Scope Definition**: Identify which files/changes are in scope. If the user has not provided a target, ask for a file path or pasted code. Exclude generated files, vendored dependencies, and test data. If no files remain after exclusion, report this clearly and ask the user to refine the scope.
 2. **Static Analysis Check**: Recommend running relevant tools and incorporating their output:
    - **SonarQube CE**: Quality gates, technical debt, code smells (21+ languages)
    - **Semgrep**: Fast pattern-based scanning for custom rules
@@ -120,6 +124,37 @@ Assess efficiency and scalability:
 
 ### Positive Highlights
 [What is done well — reinforce good practices]
+```
+
+### Example Report (Abbreviated)
+
+```markdown
+## NFR Code Review Report
+
+### Summary
+- **Files Reviewed**: 2
+- **Overall Score**: 3/4
+- **Blockers**: 0 | **Concerns**: 1 | **Suggestions**: 1
+
+### Dimension Scores
+
+#### 1. Code Design — ✅
+Clean separation between data parsing and report rendering.
+
+#### 2. Readability — ⚠️
+`utils.py:42` Function `process_data` is 78 lines long (exceeds 50-line warning threshold). Consider extracting helper functions.
+
+#### 3. Reliability — ✅
+Graceful handling of missing JSON keys in `parse-sonar-report.py:55`.
+
+#### 4. Performance — ✅
+No obvious bottlenecks for current data volumes.
+
+### Action Items
+| Priority | Item | File:Line | Dimension |
+|----------|------|-----------|-----------|
+| Concern | Function exceeds 50 lines | utils.py:42 | Readability |
+| Suggestion | Add type hints to public functions | utils.py:42 | Readability |
 ```
 
 ## Bundled Resources

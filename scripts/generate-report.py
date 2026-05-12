@@ -3,7 +3,7 @@
 Generate a standardized NFR Code Review Markdown report from structured input.
 
 Usage:
-    python generate_report.py --input review-data.json --output report.md
+    python generate-report.py --input review-data.json --output report.md
 
 Input JSON schema:
 {

@@ -3,7 +3,7 @@
 Parse SonarQube scanner or Web API JSON output and produce an NFR-aligned summary.
 
 Usage:
-    python parse_sonar_report.py --input sonar-report.json [--format markdown|json]
+    python parse-sonar-report.py --input sonar-report.json [--format markdown|json]
 
 Supports:
     - SonarQube Web API /api/issues/search response

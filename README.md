@@ -40,7 +40,9 @@ nfr-code-review/
 
 ### As an AI Agent Skill
 
-Place this directory in your skills path:
+Copy **only** `SKILL.md`, `references/`, and `scripts/` into your skills path. Do **not** copy `README.md` into the skills folder, as extra markdown files can interfere with skill loading.
+
+Supported paths:
 
 - `~/.config/agents/skills/`
 - `~/.kimi/skills/`
