@@ -122,13 +122,27 @@ Assess efficiency and scalability:
 [What is done well — reinforce good practices]
 ```
 
+## Bundled Resources
+
+Load these references when the user asks for deeper detail, specific language guidance, or CI setup help:
+
+- **Detailed checklists**: Read [`references/robonfr-checklist.md`](references/robonfr-checklist.md) when the user wants a line-by-line audit or a printable checklist.
+- **Static analysis setup**: Read [`references/static-analysis-guide.md`](references/static-analysis-guide.md) when configuring SonarQube, Semgrep, CodeQL, or CI pipelines.
+- **Language baselines**: Read [`references/nfr-baseline-templates.md`](references/nfr-baseline-templates.md) when reviewing Python, JavaScript/TypeScript, Go, Rust, or Java codebases.
+
+Run bundled scripts when automation is needed:
+
+- **Complexity scan**: `scripts/complexity-check.sh [path]` — cross-language function length and cyclomatic complexity scan (falls back to embedded Python if `lizard` is unavailable).
+- **SonarQube parse**: `scripts/parse-sonar-report.py --input issues.json` — converts SonarQube JSON output into an NFR-aligned Markdown summary.
+- **Report generation**: `scripts/generate-report.py --input data.json --output report.md` — renders a structured JSON review into the standard Markdown report format.
+
 ## Progressive Adoption Roadmap
 
 For teams introducing NFR reviews:
 
 1. **Week 1-2**: Use this skill for manual review on critical PRs. Focus on Readability and Reliability (highest impact, lowest friction).
 2. **Week 3-4**: Add SonarQube or Semgrep to CI for objective metrics on Code Design and Performance.
-3. **Month 2**: Establish internal NFR baselines per team (e.g., max cyclomatic complexity = 10, no functions > 50 lines).
+3. **Month 2**: Establish internal NFR baselines per team using [`references/nfr-baseline-templates.md`](references/nfr-baseline-templates.md).
 4. **Month 3+**: Integrate NFR checks into IDE pre-commit hooks and PR templates for automatic interception.
 
 ## Reference Tools
